@@ -29,7 +29,7 @@ public class TurnsController {
     }
 
     @GetMapping
-    public List<RequestDTO> listAll () {
+    public List<TurnsDTO> listAll () {
         return turnsService.listAll();
     }
 

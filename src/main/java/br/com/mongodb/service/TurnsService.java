@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TurnsService {
@@ -33,8 +34,19 @@ public class TurnsService {
 
     }
 
-    public List<RequestDTO> listAll() {
-        return turnsRepository.findAll();
+    public List<TurnsDTO> listAll() {
+        return turnsRepository.findAll().stream()
+                .map( t -> {
+                    TurnsDTO turnsDTO = new TurnsDTO();
+
+                    turnsDTO.setId(t.getId());
+                    turnsDTO.setPatient(t.getPatient());
+                    turnsDTO.setDoctor(t.getDoctor());
+                    turnsDTO.setDate(t.getDate());
+                    turnsDTO.setStatus(t.getStatus());
+
+                    return turnsDTO;
+                }).collect(Collectors.toList());
     }
 
     public TurnsDTO findById(String id) {
